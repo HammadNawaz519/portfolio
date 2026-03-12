@@ -9,7 +9,7 @@ const Email = z.object({
   message: z.string().min(10, "Message is too short!"),
 });
 export async function POST(req: Request) {
-  const resend = new Resend(process.env.RESEND_API_KEY);
+  const resend = new Resend('re_c9nyGkKu_DkrZLHWD18fefm23mFagV5Up');
   try {
     const body = await req.json();
     console.log(body);
@@ -22,14 +22,10 @@ export async function POST(req: Request) {
       return Response.json({ error: zodError?.message }, { status: 400 });
 
     const { data: resendData, error: resendError } = await resend.emails.send({
-      from: "Porfolio <onboarding@resend.dev>",
-      to: [config.email],
-      subject: "Contact me from portfolio",
-      react: EmailTemplate({
-        fullName: zodData.fullName,
-        email: zodData.email,
-        message: zodData.message,
-      }),
+      from: 'onboarding@resend.dev',
+      to: 'hammadnawaz519@gmail.com',
+      subject: 'EMAIL FROM PORTFOLIO',
+      html: `<p><strong>${zodData.email}</strong></p><hr/><p>${zodData.message}</p>`
     });
 
     if (resendError) {

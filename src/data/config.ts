@@ -1,5 +1,5 @@
 const config = {
-  title: "Hammad Nawaz | Full-Stack Developer",
+  title: "Hammad Nawaz | Portfolio",
   description: {
     long: "Explore the portfolio of Naresh, a full-stack developer and creative technologist specializing in interactive web experiences, 3D animations, and innovative projects. Discover my latest work, including Coding Ducks, The Booking Desk, Ghostchat, and more. Let's build something amazing together!",
     short:
@@ -29,7 +29,7 @@ const config = {
 
   // for github stars button
   githubUsername: "HammadNawaz519",
-  githubRepo: "3d-portfolio",
+  githubRepo: "portfolio",
 
   get ogImg() {
     return this.site + "/assets/seo/og-image.png";
