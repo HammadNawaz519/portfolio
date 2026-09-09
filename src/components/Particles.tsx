@@ -3,6 +3,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useMousePosition } from "@/utils/mouse";
 import { cn } from "@/lib/utils";
+// @ts-ignore
 import { usePathname } from "next/navigation";
 
 interface ParticlesProps {
