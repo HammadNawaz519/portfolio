@@ -9,8 +9,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { ScrollArea } from "./scroll-area";
-import { useLenis } from "@/lib/lenis";
+
 
 interface ModalContextType {
   open: boolean;
@@ -70,7 +69,6 @@ export const ModalBody = ({
   className?: string;
 }) => {
   const { open, setOpen } = useModal();
-  const lenis = useLenis();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -85,16 +83,13 @@ export const ModalBody = ({
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
-      lenis?.stop();
     } else {
       document.body.style.overflow = "auto";
-      lenis?.start();
     }
     return () => {
       document.body.style.overflow = "auto";
-      lenis?.start();
     };
-  }, [open, lenis]);
+  }, [open]);
 
   const modalRef = useRef(null);
   useOutsideClick(modalRef, () => setOpen(false));
@@ -115,7 +110,7 @@ export const ModalBody = ({
             backdropFilter: "blur(0px)",
           }}
           data-lenis-prevent
-          className="modall fixed [perspective:800px] [transform-style:preserve-3d] inset-0 h-full w-full  flex items-center justify-center z-50"
+          className="modall pointer-events-auto fixed [perspective:800px] [transform-style:preserve-3d] inset-0 h-full w-full flex items-center justify-center z-50"
         >
           <Overlay />
 
@@ -123,7 +118,7 @@ export const ModalBody = ({
             ref={modalRef}
             data-lenis-prevent
             className={cn(
-              "min-h-[50%] max-h-[90%] md:max-w-[40%] bg-white dark:bg-neutral-950 border border-transparent dark:border-neutral-800 md:rounded-2xl relative z-50 flex flex-col flex-1 overflow-hidden",
+              "min-h-[50%] max-h-[90%] md:max-w-[40%] bg-white dark:bg-neutral-950 border border-transparent dark:border-neutral-800 md:rounded-2xl relative z-50 flex flex-col flex-1 overflow-hidden pointer-events-auto",
               className
             )}
             initial={{
@@ -150,9 +145,12 @@ export const ModalBody = ({
             }}
           >
             <CloseIcon />
-            <ScrollArea className="h-[80dvh] w-full rounded-md border" data-lenis-prevent>
+            <div
+              className="w-full flex-1 min-h-0 overflow-y-auto overscroll-contain pointer-events-auto [scrollbar-width:thin] [scrollbar-color:rgba(155,155,155,0.4)_transparent]"
+              data-lenis-prevent
+            >
               {children}
-            </ScrollArea>
+            </div>
           </motion.div>
         </motion.div>
       )}

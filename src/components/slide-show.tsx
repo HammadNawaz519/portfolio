@@ -36,7 +36,7 @@ const SlideShow: React.FC<SlideShowProps> = ({
   if (!images || images.length === 0) return null;
 
   return (
-    <div className="relative w-full rounded-2xl overflow-hidden bg-neutral-900 border border-neutral-800 shadow-xl select-none">
+    <div className="relative w-full rounded-2xl overflow-hidden bg-neutral-900 border border-neutral-800 shadow-xl select-none pointer-events-auto">
       {/* Main Image Stage */}
       <div className="relative aspect-[16/9] w-full overflow-hidden bg-neutral-950 flex items-center justify-center">
         <AnimatePresence mode="wait">
