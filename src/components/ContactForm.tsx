@@ -33,33 +33,35 @@ const ContactForm = () => {
           message,
         }),
       });
-      const data = await res.json();
-      if (data.error) throw new Error(data.error);
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || data.error) {
+        throw new Error(
+          data.error || "Failed to send message. Please try again."
+        );
+      }
       toast({
-        title: "Thank you!",
-        description: "I'll get back to you as soon as possible.",
+        title: "Message Sent Successfully! 🎉",
+        description: "Thank you for reaching out. I'll get back to you soon.",
         variant: "default",
         className: cn("top-0 mx-auto flex fixed md:top-4 md:right-4"),
       });
-      setLoading(false);
       setFullName("");
       setEmail("");
       setMessage("");
-      const timer = setTimeout(() => {
-        router.push("/");
-        clearTimeout(timer);
-      }, 1000);
-    } catch (err) {
+    } catch (err: any) {
       toast({
-        title: "Error",
-        description: "Something went wrong! Please check the fields.",
+        title: "Unable to Send Message",
+        description:
+          err?.message ||
+          "Something went wrong! Please check the fields and try again.",
         className: cn(
           "top-0 w-full flex justify-center fixed md:max-w-7xl md:top-4 md:right-4"
         ),
         variant: "destructive",
       });
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
   return (
     <form className="min-w-7xl mx-auto sm:mt-4" onSubmit={handleSubmit}>
