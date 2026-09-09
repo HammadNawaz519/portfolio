@@ -23,6 +23,14 @@ function SmoothScroll({ children, isInsideModal = false }: LenisProps) {
     });
   }, []);
 
+  if (isInsideModal) {
+    return (
+      <div data-lenis-prevent className="w-full">
+        {children}
+      </div>
+    );
+  }
+
   return (
     <ReactLenis
       root
@@ -32,10 +40,14 @@ function SmoothScroll({ children, isInsideModal = false }: LenisProps) {
         smoothWheel: true,
         wheelMultiplier: 1,
         touchMultiplier: 2,
-        prevent: (node) => {
-          if (isInsideModal) return true;
-          const modalOpen = node.classList.contains("modall");
-          return modalOpen;
+        prevent: (node: HTMLElement) => {
+          if (!node) return false;
+          return Boolean(
+            node.classList?.contains("modall") ||
+            node.closest?.(".modall") ||
+            node.closest?.("[data-lenis-prevent]") ||
+            node.closest?.("[data-radix-scroll-area-viewport]")
+          );
         },
       }}
     >

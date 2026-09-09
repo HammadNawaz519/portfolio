@@ -10,6 +10,7 @@ import React, {
   useState,
 } from "react";
 import { ScrollArea } from "./scroll-area";
+import { useLenis } from "@/lib/lenis";
 
 interface ModalContextType {
   open: boolean;
@@ -68,25 +69,34 @@ export const ModalBody = ({
   children: ReactNode;
   className?: string;
 }) => {
-  const { open } = useModal();
+  const { open, setOpen } = useModal();
+  const lenis = useLenis();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      document.addEventListener("keydown", (e) => {
+      const handleKeyDown = (e: KeyboardEvent) => {
         if (e.key === "Escape") setOpen(false);
-      });
+      };
+      document.addEventListener("keydown", handleKeyDown);
+      return () => document.removeEventListener("keydown", handleKeyDown);
     }
-  }, []);
+  }, [setOpen]);
+
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
+      lenis?.stop();
     } else {
       document.body.style.overflow = "auto";
+      lenis?.start();
     }
-  }, [open]);
+    return () => {
+      document.body.style.overflow = "auto";
+      lenis?.start();
+    };
+  }, [open, lenis]);
 
   const modalRef = useRef(null);
-  const { setOpen } = useModal();
   useOutsideClick(modalRef, () => setOpen(false));
 
   return (
@@ -104,12 +114,14 @@ export const ModalBody = ({
             opacity: 0,
             backdropFilter: "blur(0px)",
           }}
+          data-lenis-prevent
           className="modall fixed [perspective:800px] [transform-style:preserve-3d] inset-0 h-full w-full  flex items-center justify-center z-50"
         >
           <Overlay />
 
           <motion.div
             ref={modalRef}
+            data-lenis-prevent
             className={cn(
               "min-h-[50%] max-h-[90%] md:max-w-[40%] bg-white dark:bg-neutral-950 border border-transparent dark:border-neutral-800 md:rounded-2xl relative z-50 flex flex-col flex-1 overflow-hidden",
               className
@@ -138,7 +150,7 @@ export const ModalBody = ({
             }}
           >
             <CloseIcon />
-            <ScrollArea className="h-[80dvh] w-full rounded-md border">
+            <ScrollArea className="h-[80dvh] w-full rounded-md border" data-lenis-prevent>
               {children}
             </ScrollArea>
           </motion.div>
