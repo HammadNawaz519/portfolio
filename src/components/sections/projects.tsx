@@ -10,7 +10,6 @@ import {
 } from "../ui/animated-modal";
 import { FloatingDock } from "../ui/floating-dock";
 import Link from "next/link";
-import SmoothScroll from "../smooth-scroll";
 import projects, { Project } from "@/data/projects";
 import { cn } from "@/lib/utils";
 import { SectionHeader } from "./section-header";
@@ -70,11 +69,9 @@ const Modall = ({ project }: { project: Project }) => {
           </div>
         </ModalTrigger>
         <ModalBody className="md:max-w-4xl md:max-h-[85%] overflow-auto">
-          <SmoothScroll isInsideModal={true}>
-            <ModalContent>
-              <ProjectContents project={project} />
-            </ModalContent>
-          </SmoothScroll>
+          <ModalContent>
+            <ProjectContents project={project} />
+          </ModalContent>
           <ModalFooter className="gap-3">
             <button className="px-4 py-2 bg-gray-200 text-black dark:bg-neutral-800 dark:border-neutral-700 dark:text-white border border-gray-300 rounded-lg text-sm font-medium hover:opacity-80 transition-opacity">
               Close

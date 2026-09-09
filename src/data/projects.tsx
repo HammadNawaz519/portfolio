@@ -29,6 +29,7 @@ import {
   SiVuedotjs,
 } from "react-icons/si";
 import { TbBrandFramerMotion } from "react-icons/tb";
+
 const BASE_PATH = "/assets/projects-screenshots";
 
 const ProjectsLinks = ({ live, repo }: { live: string; repo?: string }) => {
@@ -68,6 +69,7 @@ export type Skill = {
   fg: string;
   icon: ReactNode;
 };
+
 const PROJECT_SKILLS = {
   next: {
     title: "Next.js",
@@ -230,6 +232,7 @@ const PROJECT_SKILLS = {
     icon: <SiRedis />,
   },
 };
+
 export type Project = {
   id: string;
   category: string;
@@ -241,17 +244,19 @@ export type Project = {
   github?: string;
   live: string;
 };
+
 const projects: Project[] = [
   {
     id: "shopy",
     category: "Full Stack Luxury E-Commerce",
     title: "SHOPY Atelier",
-    src: "/assets/projects-screenshots/shopy/hero.jpg",
+    src: "/assets/projects-screenshots/shopy/thumbnail.png",
     screenshots: [
-      "/assets/projects-screenshots/shopy/hero.jpg",
-      "/assets/projects-screenshots/shopy/collection.jpg",
-      "/assets/projects-screenshots/shopy/product.jpg",
-      "/assets/projects-screenshots/shopy/editorial.jpg",
+      "/assets/projects-screenshots/shopy/thumbnail.png",
+      "/assets/projects-screenshots/shopy/catalog.png",
+      "/assets/projects-screenshots/shopy/collections.png",
+      "/assets/projects-screenshots/shopy/account.png",
+      "/assets/projects-screenshots/shopy/product-page.png",
     ],
     skills: {
       frontend: [
@@ -271,16 +276,22 @@ const projects: Project[] = [
       <div className="space-y-6">
         <ProjectsLinks live="https://buyatshopy.vercel.app" />
 
-        <div className="rounded-xl overflow-hidden shadow-md border border-neutral-200 dark:border-neutral-800">
-          <SlideShow
-            images={[
-              "/assets/projects-screenshots/shopy/hero.jpg",
-              "/assets/projects-screenshots/shopy/collection.jpg",
-              "/assets/projects-screenshots/shopy/product.jpg",
-              "/assets/projects-screenshots/shopy/editorial.jpg",
-            ]}
-          />
-        </div>
+        <SlideShow
+          images={[
+            "/assets/projects-screenshots/shopy/thumbnail.png",
+            "/assets/projects-screenshots/shopy/catalog.png",
+            "/assets/projects-screenshots/shopy/collections.png",
+            "/assets/projects-screenshots/shopy/account.png",
+            "/assets/projects-screenshots/shopy/product-page.png",
+          ]}
+          captions={[
+            "01 • Architectural Elegance Landing & Hero",
+            "02 • Dynamic Product Catalog & Live Filtering",
+            "03 • Sartorial Co-ord Sets Collection View",
+            "04 • Client Account Dashboard & Order Tracking",
+            "05 • Interactive Product Detail Page & Quick Bag",
+          ]}
+        />
 
         <div className="space-y-4 text-neutral-700 dark:text-neutral-300">
           <p className="text-base leading-relaxed">
@@ -329,4 +340,5 @@ const projects: Project[] = [
     ),
   },
 ];
+
 export default projects;
