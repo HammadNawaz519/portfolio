@@ -98,19 +98,12 @@ export const ModalBody = ({
     <AnimatePresence>
       {open && (
         <motion.div
-          initial={{
-            opacity: 0,
-          }}
-          animate={{
-            opacity: 1,
-            backdropFilter: "blur(10px)",
-          }}
-          exit={{
-            opacity: 0,
-            backdropFilter: "blur(0px)",
-          }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
           data-lenis-prevent
-          className="modall pointer-events-auto fixed [perspective:800px] [transform-style:preserve-3d] inset-0 h-full w-full flex items-center justify-center z-50"
+          className="modall pointer-events-auto fixed inset-0 h-full w-full flex items-center justify-center z-50 p-4 sm:p-6"
         >
           <Overlay />
 
@@ -118,36 +111,37 @@ export const ModalBody = ({
             ref={modalRef}
             data-lenis-prevent
             className={cn(
-              "min-h-[50%] max-h-[90%] md:max-w-[40%] bg-white dark:bg-neutral-950 border border-transparent dark:border-neutral-800 md:rounded-2xl relative z-50 flex flex-col flex-1 overflow-hidden pointer-events-auto",
+              "min-h-[50%] max-h-[90%] md:max-w-4xl bg-white dark:bg-neutral-950 border border-neutral-200/80 dark:border-neutral-800 md:rounded-2xl rounded-xl relative z-50 flex flex-col flex-1 overflow-hidden pointer-events-auto shadow-2xl transform-gpu will-change-transform",
               className
             )}
             initial={{
               opacity: 0,
-              scale: 0.5,
-              rotateX: 40,
-              y: 40,
+              scale: 0.96,
+              y: 16,
             }}
             animate={{
               opacity: 1,
               scale: 1,
-              rotateX: 0,
               y: 0,
             }}
             exit={{
               opacity: 0,
-              scale: 0.8,
-              rotateX: 10,
+              scale: 0.96,
+              y: 12,
             }}
             transition={{
-              type: "spring",
-              stiffness: 260,
-              damping: 15,
+              duration: 0.22,
+              ease: [0.16, 1, 0.3, 1],
             }}
           >
             <CloseIcon />
             <div
               className="w-full flex-1 min-h-0 overflow-y-auto overscroll-contain pointer-events-auto [scrollbar-width:thin] [scrollbar-color:rgba(155,155,155,0.4)_transparent]"
               data-lenis-prevent
+              style={{
+                WebkitOverflowScrolling: "touch",
+                scrollBehavior: "smooth",
+              }}
             >
               {children}
             </div>
@@ -182,7 +176,7 @@ export const ModalFooter = ({
   return (
     <div
       className={cn(
-        "flex justify-end p-4 bg-gray-100 dark:bg-neutral-900",
+        "flex justify-end p-4 bg-gray-100 dark:bg-neutral-900 border-t border-neutral-200/80 dark:border-neutral-800",
         className
       )}
     >
@@ -195,20 +189,16 @@ const Overlay = ({ className }: { className?: string }) => {
   const { setOpen } = useModal();
   return (
     <motion.div
-      initial={{
-        opacity: 0,
-      }}
-      animate={{
-        opacity: 1,
-        backdropFilter: "blur(10px)",
-      }}
-      exit={{
-        opacity: 0,
-        backdropFilter: "blur(0px)",
-      }}
-      className={`modal-overlay fixed inset-0 h-full w-full bg-black bg-opacity-50 z-50 ${className}`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
+      className={cn(
+        "modal-overlay fixed inset-0 h-full w-full bg-black/70 backdrop-blur-md z-40",
+        className
+      )}
       onClick={() => setOpen(false)}
-    ></motion.div>
+    />
   );
 };
 
@@ -217,19 +207,20 @@ const CloseIcon = () => {
   return (
     <button
       onClick={() => setOpen(false)}
-      className="absolute top-4 right-4 group z-[9999]"
+      className="absolute top-4 right-4 group z-[9999] p-1 rounded-full bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
+      aria-label="Close modal"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="36"
-        height="36"
+        width="24"
+        height="24"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="text-black dark:text-white h-4 w-4 group-hover:scale-125 group-hover:rotate-3 transition duration-200"
+        className="text-neutral-700 dark:text-neutral-300 h-4 w-4 transition-transform group-hover:scale-110"
       >
         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
         <path d="M18 6l-12 12" />
@@ -240,29 +231,20 @@ const CloseIcon = () => {
 };
 
 // Hook to detect clicks outside of a component.
-// Add it in a separate file, I've added here for simplicity
 export const useOutsideClick = (
   ref: React.RefObject<HTMLDivElement>,
   callback: Function
 ) => {
   useEffect(() => {
-    const listener = (
-      event: any
-      //  React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>
-    ) => {
-      // DO NOTHING if the element being clicked is the target element or their children
-      if (
-        !ref.current ||
-        ref.current.contains(event.target) ||
-        !event.target.classList.contains("no-click-outside")
-      ) {
+    const listener = (event: MouseEvent | TouchEvent) => {
+      if (!ref.current || ref.current.contains(event.target as Node)) {
         return;
       }
       callback(event);
     };
 
     document.addEventListener("mousedown", listener);
-    document.addEventListener("touchstart", listener);
+    document.addEventListener("touchstart", listener, { passive: true });
 
     return () => {
       document.removeEventListener("mousedown", listener);
