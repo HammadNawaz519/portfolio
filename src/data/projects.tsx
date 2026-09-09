@@ -18,6 +18,7 @@ import {
   SiPrisma,
   SiPython,
   SiReactquery,
+  SiRedis,
   SiSanity,
   SiShadcnui,
   SiSocketdotio,
@@ -222,6 +223,12 @@ const PROJECT_SKILLS = {
     fg: "white",
     icon: <SiSupabase />,
   },
+  redis: {
+    title: "Upstash Redis",
+    bg: "black",
+    fg: "white",
+    icon: <SiRedis />,
+  },
 };
 export type Project = {
   id: string;
@@ -235,7 +242,91 @@ export type Project = {
   live: string;
 };
 const projects: Project[] = [
- 
+  {
+    id: "shopy",
+    category: "Full Stack Luxury E-Commerce",
+    title: "SHOPY Atelier",
+    src: "/assets/projects-screenshots/shopy/hero.jpg",
+    screenshots: [
+      "/assets/projects-screenshots/shopy/hero.jpg",
+      "/assets/projects-screenshots/shopy/collection.jpg",
+      "/assets/projects-screenshots/shopy/product.jpg",
+      "/assets/projects-screenshots/shopy/editorial.jpg",
+    ],
+    skills: {
+      frontend: [
+        PROJECT_SKILLS.next,
+        PROJECT_SKILLS.react,
+        PROJECT_SKILLS.ts,
+        PROJECT_SKILLS.tailwind,
+      ],
+      backend: [
+        PROJECT_SKILLS.postgres,
+        PROJECT_SKILLS.redis,
+        PROJECT_SKILLS.node,
+      ],
+    },
+    live: "https://buyatshopy.vercel.app",
+    content: (
+      <div className="space-y-6">
+        <ProjectsLinks live="https://buyatshopy.vercel.app" />
 
+        <div className="rounded-xl overflow-hidden shadow-md border border-neutral-200 dark:border-neutral-800">
+          <SlideShow
+            images={[
+              "/assets/projects-screenshots/shopy/hero.jpg",
+              "/assets/projects-screenshots/shopy/collection.jpg",
+              "/assets/projects-screenshots/shopy/product.jpg",
+              "/assets/projects-screenshots/shopy/editorial.jpg",
+            ]}
+          />
+        </div>
+
+        <div className="space-y-4 text-neutral-700 dark:text-neutral-300">
+          <p className="text-base leading-relaxed">
+            <strong className="text-neutral-900 dark:text-white">SHOPY Atelier</strong> is a full-stack luxury fashion commerce platform designed with an architectural aesthetic, high-converting checkout funnel, and enterprise-grade cloud performance.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+            <div className="p-4 rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/60">
+              <div className="text-sm font-semibold text-neutral-900 dark:text-white mb-1">
+                ⚡ Sub-Second Performance
+              </div>
+              <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                Next.js 14 Server Components with 60s ISR edge caching for ultra-fast browsing and instantaneous catalog navigation.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/60">
+              <div className="text-sm font-semibold text-neutral-900 dark:text-white mb-1">
+                🛍️ Fluid Shopping Experience
+              </div>
+              <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                Interactive slide-out bag, real-time inventory validation, dynamic size/color selection, and frictionless checkout.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/60">
+              <div className="text-sm font-semibold text-neutral-900 dark:text-white mb-1">
+                🗄️ Scalable Cloud Architecture
+              </div>
+              <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                Direct pooled PostgreSQL database paired with Upstash Redis distributed caching for zero-latency queries.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-neutral-200/80 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/60">
+              <div className="text-sm font-semibold text-neutral-900 dark:text-white mb-1">
+                ✨ Editorial Aesthetics & AI
+              </div>
+              <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                Minimalist typography, micro-interactions, and AI-driven editorial fashion quotes powered by Groq API.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
 ];
 export default projects;

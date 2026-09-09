@@ -1,0 +1,37 @@
+# PREVIOUS PROJECTS BACKUP
+
+================================================================================
+1. Weather App
+================================================================================
+Subtitle: Hackathon Winner — 1st Place 🏆
+Tech Stack: React, TypeScript, Tailwind CSS, REST APIs, Context API
+Description:
+- Designed and built a highly responsive, pixel-perfect weather forecasting web application under strict hackathon time constraints.
+- Implemented live location tracking, dynamic UI themes that adapt instantly to changing weather conditions.
+- High-performance asynchronous data fetching for zero-latency updates.
+
+================================================================================
+2. Connect
+================================================================================
+Subtitle: Mobile-First Social Platform
+Tech Stack: Next.js, Tailwind CSS, Prisma, NextAuth.js, Capacitor, Groq AI API
+Description:
+- Engineered an Instagram-style mobile interface with a zero-lag, instant-render startup via strategic local session caching.
+- Developed a secure, 1-click multi-account switching system inside an animated, native-feeling bottom sheet layout.
+- Integrated an intelligent, context-aware AI chat assistant utilizing the Groq API with conversation persistence.
+
+================================================================================
+3. Puff
+================================================================================
+Subtitle: Advanced PC Automation Assistant
+Tech Stack: Python, Voice Recognition, OS-Level Scripting
+Description:
+- Developed a lightweight system assistant executing automated machine workflows and custom scripts via precise voice triggers.
+
+================================================================================
+4. Self-Hosted Cloud Infrastructure
+================================================================================
+Subtitle: Private Home Server
+Tech Stack: Ubuntu Linux, Docker, Apache Kafka, Tailscale, Cloudflare Tunnels
+Description:
+- Configured a self-hosted home server using Docker to manage private data networks, localized event pipelines, and secure tunnel exposure.
