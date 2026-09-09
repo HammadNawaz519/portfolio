@@ -40,7 +40,7 @@ export async function POST(req: Request) {
     const { data: resendData, error: resendError } = await resend.emails.send({
       from: "Portfolio Contact <onboarding@resend.dev>",
       to: "hammadnawaz519@gmail.com",
-      reply_to: zodData.email,
+      replyTo: zodData.email,
       subject: `Portfolio Message from ${zodData.fullName}`,
       html: `
         <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #eaeaea; border-radius: 12px; background-color: #ffffff; color: #1a1a1a;">
