@@ -21,7 +21,7 @@ export default function Particles({
   refresh = false,
 }: ParticlesProps) {
   const pathname = usePathname();
-  const isBlogPost = pathname.startsWith("/blogs/") && pathname !== "/blogs";
+  const isBlogPost = pathname?.startsWith("/blogs/") && pathname !== "/blogs";
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const canvasContainerRef = useRef<HTMLDivElement>(null);
