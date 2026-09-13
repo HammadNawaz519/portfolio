@@ -70,10 +70,18 @@ const SocketContextProvider = ({ children }: { children: ReactNode }) => {
 
   // SETUP SOCKET.IO
   useEffect(() => {
-    if (!process.env.NEXT_PUBLIC_WS_URL) return
-    const socket = io(process.env.NEXT_PUBLIC_WS_URL!, {
+    const wsUrl = process.env.NEXT_PUBLIC_WS_URL?.trim();
+    if (!wsUrl || wsUrl === "" || wsUrl === "/" || wsUrl === "undefined") return;
+
+    // Strictly websocket transport - never fall back to HTTP polling
+    const socket = io(wsUrl, {
+      transports: ["websocket"],
+      upgrade: false,
+      reconnectionAttempts: 3,
+      reconnectionDelay: 5000,
+      timeout: 8000,
       auth: {
-        sessionId: localStorage.getItem(SESSION_ID_KEY), // send on reconnect to restore session
+        sessionId: typeof window !== "undefined" ? localStorage.getItem(SESSION_ID_KEY) : null,
       },
     });
     setSocket(socket);

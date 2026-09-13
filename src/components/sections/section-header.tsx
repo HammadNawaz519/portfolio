@@ -7,7 +7,7 @@ export const SectionHeader = ({ id, title, desc, className }: { id: string, titl
   return (
 
     <div className={cn("top-[70px] sticky mb-96", className)}>
-      <Link href={`#${id}`}>
+      <Link href={`#${id}`} prefetch={false}>
         <BoxReveal width="100%">
           <h2
             className={cn(
